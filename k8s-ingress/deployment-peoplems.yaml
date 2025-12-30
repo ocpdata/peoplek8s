@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peoplems-deployment
+  labels:
+    app: peoplems
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: peoplems
+  template:
+    metadata:
+      labels:
+        app: peoplems
+    spec:
+      containers:
+        - name: peoplems
+          image: oacarrillop/peoplems-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+              name: https
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: 4000
+#              scheme: HTTPS
+#            initialDelaySeconds: 30
+#            periodSeconds: 10
+#            timeoutSeconds: 5
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: 4000
+#              scheme: HTTPS
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#            timeoutSeconds: 3

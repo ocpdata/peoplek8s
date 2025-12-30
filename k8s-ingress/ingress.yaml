@@ -1,0 +1,75 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: peoplek8s-ingress
+  annotations:
+    # Redirección HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # Backend usa HTTPS
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+    # Tamaño máximo de peticiones
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+
+    # CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://peoplek8s.digitalvs.com"
+
+    # Timeouts
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - peoplek8s.digitalvs.com
+      secretName: peoplek8s-tls
+  rules:
+    - host: peoplek8s.digitalvs.com
+      http:
+        paths:
+          # API Gateway - rutas específicas (deben ir primero)
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 4100
+
+          - path: /apis
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 4100
+
+          - path: /doc
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 4100
+
+          - path: /filemanager
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 4100
+
+          # Peoplems - frontend (debe ir al final, catch-all)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: peoplems-service
+                port:
+                  number: 4000

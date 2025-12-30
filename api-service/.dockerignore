@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+*.md
+k8s-*.yaml
+deploy-k8s.sh
+undeploy-k8s.sh
+.DS_Store

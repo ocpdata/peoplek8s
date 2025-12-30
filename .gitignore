@@ -1,0 +1,10 @@
+# Ignorar directorio certificados en cualquier nivel
+certificados/
+
+# Ignorar archivos .env en cualquier subdirectorio
+**/.env
+
+# Ignorar node_modules en cualquier subdirectorio
+**/node_modules/
+
+.vscode/

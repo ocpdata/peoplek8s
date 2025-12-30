@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: phpmyadmin-apache-config
+data:
+  phpmyadmin.conf: |
+    Alias /phpmyadmin /var/www/html
+    
+    <Directory /var/www/html>
+        Options FollowSymLinks
+        DirectoryIndex index.php
+        
+        <IfModule mod_php.c>
+            <IfModule mod_mime.c>
+                AddType application/x-httpd-php .php
+            </IfModule>
+            <FilesMatch ".+\.php$">
+                SetHandler application/x-httpd-php
+            </FilesMatch>
+            
+            php_value include_path .
+            php_admin_value upload_tmp_dir /tmp
+            php_admin_value open_basedir /var/www/html/:/usr/share/php/:/tmp/:/usr/share/phpmyadmin/:/etc/phpmyadmin/
+            php_value upload_max_filesize 512M
+            php_value post_max_size 512M
+            php_value max_execution_time 600
+            php_value max_input_time 600
+            php_value memory_limit 512M
+        </IfModule>
+    </Directory>
