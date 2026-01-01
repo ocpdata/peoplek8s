@@ -47,6 +47,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Crear certificado fullchain.pem desde secret
+        run: |
+          mkdir -p peoplems/certificados
+          echo "${{ secrets.FULLCHAIN_PEM_B64 }}" | base64 -d > peoplems/certificados/fullchain.pem
+
+      - name: Crear certificado privkey.pem desde secret
+        run: |
+          mkdir -p peoplems/certificados
+          echo "${{ secrets.PRIVKEY_PEM_B64 }}" | base64 -d > peoplems/certificados/privkey.pem
+
       - name: Build and push Docker image
         run: |
           docker build -t $REGISTRY/$IMAGE_OWNER/${{ matrix.service }}:latest ./${{ matrix.service }}
