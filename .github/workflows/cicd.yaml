@@ -78,6 +78,30 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
+      - name: Create PVC if not exists
+        run: |
+          kubectl apply -f k8s-ingress/pvc-mysql.yaml
+
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s-ingress/
+
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          kubectl wait --for=condition=ready pod -l app=mysql --timeout=300s
+          sleep 15
+
+      - name: Initialize database if not exists
+        run: |
+          echo "Checking if database exists..."
+          MYSQL_PWD=$(kubectl get secret mysql-secret -o jsonpath="{.data.MYSQL_ROOT_PASSWORD}" | base64 -d)
+          DB_EXISTS=$(kubectl exec deployment/mysql-deployment -- mysql -uroot -p"$MYSQL_PWD" -e "SHOW DATABASES LIKE 'people_etapa1';" 2>/dev/null | grep -c people_etapa1 || echo "0")
+          
+          if [ "$DB_EXISTS" -eq "0" ]; then
+            echo "Database does not exist. Running SQL script..."
+            kubectl exec -i deployment/mysql-deployment -- mysql -uroot -p"$MYSQL_PWD" < bd/er/crm-etapa1-schema.sql
+            echo "Database created successfully"
+          else
+            echo "Database already exists. Skipping initialization."
+          fi
