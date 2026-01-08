@@ -46,7 +46,8 @@ build:
 
 manifests:
   rawYaml:
-    # Quitar k8s-ingress/pvc-mysql.yaml para evitar borrado accidental del PVC
+    # PVC aplicado manualmente en el hook para evitar eliminación accidental
+    # kubectl apply -f k8s-ingress/pvc-mysql.yaml
     - k8s-ingress/deployment-mysql.yaml
     - k8s-ingress/configmap-phpmyadmin-apache.yaml
     - k8s-ingress/deployment-phpmyadmin.yaml
@@ -74,11 +75,47 @@ deploy:
     hooks:
       before:
         - host:
-            command: ["sh", "-c", "kubectl create secret tls peoplek8s-tls --cert=peoplems/certificados/fullchain.pem --key=peoplems/certificados/privkey.pem --dry-run=client -o yaml | kubectl apply -f -"]
+            command: ["sh", "-c", "kubectl apply -f k8s-ingress/pvc-mysql.yaml"]
         - host:
-            command: ["sh", "-c", "if [ -f k8s-ingress/.env ]; then export $(grep -v '^#' k8s-ingress/.env | xargs); fi; kubectl create secret generic app-secrets --from-literal=JWT_SECRET=\"${JWT_SECRET:-default-secret-change-in-production}\" --from-literal=SESSION_SECRET=\"${SESSION_SECRET:-}\" --from-literal=GOOGLE_CLIENT_ID=\"${GOOGLE_CLIENT_ID:-}\" --from-literal=GOOGLE_CLIENT_SECRET=\"${GOOGLE_CLIENT_SECRET:-}\" --from-literal=API_KEY_VALIDACION_LOCAL=\"${API_KEY_VALIDACION_LOCAL:-}\" --from-literal=REDIS_HOST=\"${REDIS_HOST:-redis-service}\" --from-literal=REDIS_PORT=\"${REDIS_PORT:-6379}\" --from-literal=REDIS_PASSWORD=\"${REDIS_PASSWORD:-$(openssl rand -base64 32)}\" --dry-run=client -o yaml | kubectl apply -f -"]
+            command:
+              [
+                "sh",
+                "-c",
+                "kubectl create secret tls peoplek8s-tls --cert=peoplems/certificados/fullchain.pem --key=peoplems/certificados/privkey.pem --dry-run=client -o yaml | kubectl apply -f -",
+              ]
         - host:
-            command: ["sh", "-c", "if [ -f k8s-ingress/.env ]; then export $(grep -v '^#' k8s-ingress/.env | xargs); fi; kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=\"${MYSQL_ROOT_PASSWORD:-rootpassword123}\" --from-literal=MYSQL_DATABASE=\"${MYSQL_DATABASE:-ormprueba}\" --from-literal=MYSQL_USER=\"${MYSQL_USER:-ocarrillo}\" --from-literal=MYSQL_PASSWORD=\"${MYSQL_PASSWORD:-cruz4das}\" --dry-run=client -o yaml | kubectl apply -f -"]
+            command:
+              [
+                "sh",
+                "-c",
+                'if [ -f k8s-ingress/.env ]; then export $(grep -v ''^#'' k8s-ingress/.env | xargs); fi; kubectl create secret generic app-secrets --from-literal=JWT_SECRET="${JWT_SECRET:-default-secret-change-in-production}" --from-literal=SESSION_SECRET="${SESSION_SECRET:-}" --from-literal=GOOGLE_CLIENT_ID="${GOOGLE_CLIENT_ID:-}" --from-literal=GOOGLE_CLIENT_SECRET="${GOOGLE_CLIENT_SECRET:-}" --from-literal=API_KEY_VALIDACION_LOCAL="${API_KEY_VALIDACION_LOCAL:-}" --from-literal=REDIS_HOST="${REDIS_HOST:-redis-service}" --from-literal=REDIS_PORT="${REDIS_PORT:-6379}" --from-literal=REDIS_PASSWORD="${REDIS_PASSWORD:-$(openssl rand -base64 32)}" --dry-run=client -o yaml | kubectl apply -f -',
+              ]
+        - host:
+            command:
+              [
+                "sh",
+                "-c",
+                'if [ -f k8s-ingress/.env ]; then export $(grep -v ''^#'' k8s-ingress/.env | xargs); fi; kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-rootpassword123}" --from-literal=MYSQL_DATABASE="${MYSQL_DATABASE:-ormprueba}" --from-literal=MYSQL_USER="${MYSQL_USER:-ocarrillo}" --from-literal=MYSQL_PASSWORD="${MYSQL_PASSWORD:-cruz4das}" --dry-run=client -o yaml | kubectl apply -f -',
+              ]
+      after:
+        - host:
+            command:
+              - sh
+              - -c
+              - |
+                echo "Esperando a que MySQL esté listo..."
+                kubectl wait --for=condition=ready pod -l app=mysql --timeout=120s
+                sleep 10
+                echo "Verificando si la base de datos existe..."
+                MYSQL_PWD=$(kubectl get secret mysql-secret -o jsonpath="{.data.MYSQL_ROOT_PASSWORD}" | base64 -d)
+                DB_EXISTS=$(kubectl exec deployment/mysql-deployment -- mysql -uroot -p"$MYSQL_PWD" -e "SHOW DATABASES LIKE 'people_etapa1';" | grep -c people_etapa1 || echo "0")
+                if [ "$DB_EXISTS" -eq "0" ]; then
+                  echo "Base de datos no existe. Ejecutando script SQL..."
+                  kubectl exec -i deployment/mysql-deployment -- mysql -uroot -p"$MYSQL_PWD" < bd/er/crm-etapa1-schema.sql
+                  echo "Base de datos creada exitosamente"
+                else
+                  echo "Base de datos ya existe. Omitiendo creación."
+                fi
 
 # Configuración para desarrollo local
 profiles:

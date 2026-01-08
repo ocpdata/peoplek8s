@@ -1,0 +1,151 @@
+<mxfile host="app.diagrams.net" modified="2026-01-07T12:00:00.000Z" agent="draw.io" version="22.1.16">
+  <diagram name="CRM-Etapa1" id="crm-etapa1">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="2000" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Fondo blanco explícito -->
+        <mxCell id="background" value="" style="fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry width="3000" height="2000" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: usuarios -->
+        <mxCell id="usuarios" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e3f2fd; font-weight:bold; padding:8px;'&gt;usuarios&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idUsuario&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombresUsuario&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;apellidosUsuario&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;emailUsuario&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;password&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="220" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: cuentas -->
+        <mxCell id="cuentas" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e3f2fd; font-weight:bold; padding:8px;'&gt;cuentas&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombreCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idTipoCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idSectorCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: contactos -->
+        <mxCell id="contactos" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e3f2fd; font-weight:bold; padding:8px;'&gt;contactos&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idContacto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombresContacto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;emailContacto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: oportunidades -->
+        <mxCell id="oportunidades" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fff3e0; font-weight:bold; padding:8px;'&gt;oportunidades&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idOportunidad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombreOportunidad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEtapaVenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idLineaNegocio&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="250" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: propuestas -->
+        <mxCell id="propuestas" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e8f5e9; font-weight:bold; padding:8px;'&gt;propuestas&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idOportunidad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="250" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: versionesPropuesta -->
+        <mxCell id="versionesPropuesta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e8f5e9; font-weight:bold; padding:8px;'&gt;versionesPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idVersion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombrePropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;numeroVersion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idMoneda&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="390" width="240" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: seccionesPropuesta -->
+        <mxCell id="seccionesPropuesta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e8f5e9; font-weight:bold; padding:8px;'&gt;seccionesPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idSeccion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idVersion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;tituloSeccion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idVisibilidadSeccion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;orden&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="950" y="390" width="240" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: itemsPropuesta -->
+        <mxCell id="itemsPropuesta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#e8f5e9; font-weight:bold; padding:8px;'&gt;itemsPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idItem&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idSeccion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idFabricante&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idTipoProducto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;codigoItem&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;descripcionItem&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;cantidad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;precioListaUnitario&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="950" y="570" width="240" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: estadosRegistro -->
+        <mxCell id="estadosRegistro" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;estadosRegistro&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;descripcion&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="800" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: tiposProductos -->
+        <mxCell id="tiposProductos" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;tiposProductos&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idTipoProducto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;descripcion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="570" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: fabricantes -->
+        <mxCell id="fabricantes" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;fabricantes&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idFabricante&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;descripcion&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="730" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: catalogoItems -->
+        <mxCell id="catalogoItems" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;catalogoItems&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idCatalogoItem&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idFabricante&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;codigo (con Fabricante)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;precioLista&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="890" width="260" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: etapasVenta -->
+        <mxCell id="etapasVenta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;etapasVenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEtapaVenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;orden&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;probabilidad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: lineasNegocio -->
+        <mxCell id="lineasNegocio" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;lineasNegocio&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idLineaNegocio&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombreCorto&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="50" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: tiposCuenta -->
+        <mxCell id="tiposCuenta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;tiposCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idTipoCuenta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="800" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ENTIDAD: estadosPropuesta -->
+        <mxCell id="estadosPropuesta" value="&lt;table border='1' style='width:100%; border-collapse:collapse; font-family:monospace;'&gt;&lt;tr&gt;&lt;td colspan='2' style='background-color:#fce4ec; font-weight:bold; padding:8px;'&gt;estadosPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;PK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoPropuesta&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;nombre&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;UK&lt;/td&gt;&lt;td style='padding:4px;'&gt;orden&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='padding:4px;'&gt;FK&lt;/td&gt;&lt;td style='padding:4px;'&gt;idEstadoRegistro&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="540" y="800" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: itemsPropuesta -> tiposProductos -->
+        <mxCell id="rel_items_tipos" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" parent="1" source="itemsPropuesta" target="tiposProductos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_items_tipos_label" value="M:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="rel_items_tipos">
+          <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Relación: itemsPropuesta -> fabricantes -->
+        <mxCell id="rel_items_fabr" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="itemsPropuesta" target="fabricantes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: fabricantes -> catalogoItems -->
+        <mxCell id="rel_fabr_catalogo" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fabricantes" target="catalogoItems">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_fabr_catalogo_label" value="1:M" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="rel_fabr_catalogo">
+          <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Relación: cuentas -> contactos -->
+        <mxCell id="rel_cuentas_contactos" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="cuentas" target="contactos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: oportunidades -> propuestas -->
+        <mxCell id="rel_opor_prop" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="oportunidades" target="propuestas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: propuestas -> versionesPropuesta -->
+        <mxCell id="rel_prop_vers" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="propuestas" target="versionesPropuesta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: versionesPropuesta -> seccionesPropuesta -->
+        <mxCell id="rel_vers_secc" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="versionesPropuesta" target="seccionesPropuesta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relación: seccionesPropuesta -> itemsPropuesta -->
+        <mxCell id="rel_secc_items" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="seccionesPropuesta" target="itemsPropuesta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Título del diagrama -->
+        <mxCell id="title" value="CRM Sistema People - Etapa 1 (31 Entidades)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="500" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
